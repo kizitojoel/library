@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="constructor.css">
+    <title>Library</title>
+</head>
+<body>
+    <nav>
+        <h1>The Digital Library</h1>
+        <button id="addNewBook" onclick="expandModalForm()">Add New Book</button>
+    </nav>
+    <div class="library"></div>
+    <div class="fader"></div>
+    <form action="submit" class="modal">
+        <ul id="form-list">
+            <li>
+                <h3>Add New Book</h3>
+            </li>
+            <li>
+                <label for="formTitle">Title</label>
+                <input required type="text" name="formTitle" id="formTitle">
+            </li>
+            <li>
+                <label for="formAuthor">Author</label>
+                <input required type="text" id="formAuthor" name="formAuthor">
+            </li>
+            <li>
+                <label for="formPages">Pages</label>
+                <input required type="number" name="formPages" id="formPages">
+            </li>
+            <li>
+                <label for="formRead">Read</label>
+                <input type="checkbox" id="formRead" name="formRead">
+            </li>
+            <li><button id="formSubmit">Submit</button></li>
+        </ul>   
+    </form>
+    <script src="constructor.js"></script>
+</body>
+</html>

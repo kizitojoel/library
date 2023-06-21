@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Handlee&display=swap');
+:root
+{
+    --black: #1A1A1D;
+    --grey: #4E4E50;
+    --maroon: #6F2232;
+    --pink: #950740;
+    --red: #C3073F;
+}
+*
+{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Handlee, Poppins, 'Times New Roman', Times, serif;
+}
+nav
+{
+    display: flex;
+    padding: 12px;
+    justify-content: space-between;
+    background-color: rgb(251, 196, 119);
+    box-shadow: 0px 3px 7px 1px rgba(0, 0, 0, 0.2);
+}
+nav h1{
+    text-decoration: none;
+    font-size: 2rem;
+}
+nav button{
+    font-size: 1.1rem;
+}
+nav button:hover{
+    background-color: #4E4E50;
+}
+button
+{
+    border: 1px solid black;
+    padding: 0.6rem;
+    background-color: ;
+    cursor: pointer;
+}
+.library
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 8px;
+    padding: 16px;
+}
+.book
+{
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    width: 250px;
+    aspect-ratio: 3 / 4;
+    padding: 0.5rem;
+    gap: 8px;
+    background-color: rgb(170, 206, 233);
+    box-shadow: 0px 0px 7px 5px rgba(170, 206, 233, 0.3);
+}
+.title
+{
+    font-size: 1.5rem;
+    font-weight: 500;
+    text-decoration: underline;
+}
+.author
+{
+    font-size: 1.2rem;
+}
+.remove-book, .status{
+    align-self: center;
+    padding: 0.5rem;
+    width: 100%;
+    border-radius: 10px;
+}
+.status
+{
+    margin-top: auto;
+}
+
+
+.status:not(.read)
+{
+    background-color: orange;
+}
+.read{
+    background-color: green;
+}
+.status:hover
+{
+    fill-opacity: 0.5;
+}
+.modal
+{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    transform: translate(-50%, -50%) scale(0);
+    transition: ease-in-out 0.2s;
+}
+.active
+{
+    transform: translate(-50%, -50%) scale(1);
+    transition: ease-in-out 0.2s;
+}
+.fader
+{
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+.fader-active
+{
+    display: block;
+}
+#form-list
+{
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    background-color: rgb(245, 249, 231);
+    padding: 1rem;
+    border-radius: 10px;
+}
+#form-list li{
+    display: flex;
+    flex-direction: column;
+}
+@media (max-width: 425px) {
+    nav{
+        flex-direction: column;
+        align-items: center;
+        position: sticky;
+        top: 0px;
+    }
+
+}
