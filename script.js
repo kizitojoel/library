@@ -53,71 +53,72 @@ class Library {
         modalForm.classList.toggle("active");
         fader.classList.remove("fader-active");
     }
+    /**
+     * This function creates a book section and adds it to the DOM
+     * @param {Book} bookInstance The book instance to be created
+     * @param {Number} bookIndex The index of the Book Index in the Library Array
+     */
+    static createBookSection(bookInstance, bookIndex){
+        let book = document.createElement("div");
+        book.setAttribute("class", "book");
+
+        let bookTitle = document.createElement("div");
+        bookTitle.setAttribute('class', 'title');
+        bookTitle.innerHTML = bookInstance.title;
+
+        let bookAuthor = document.createElement("div");
+        bookAuthor.setAttribute("class", "author");
+        bookAuthor.innerHTML = bookInstance.author;
+
+        let bookPages = document.createElement("div");
+        bookPages.setAttribute("class", "pages");
+        bookPages.innerHTML = `${bookInstance.pages} pages`;
+
+        let bookRead = document.createElement("button");
+        bookRead.setAttribute("class", "status");
+        if (bookInstance.read === "Read")
+        {
+            bookRead.classList.add('read');
+        }
+        bookRead.textContent = bookInstance.read;
+        bookRead.onclick = (e) => {
+            let readBtn = e.target;
+            if (readBtn.classList.contains("read"))
+            {
+                readBtn.textContent = "Not Read";
+            }
+            else
+            {
+                readBtn.textContent = "Read";
+            }
+            readBtn.classList.toggle("read");
+            let index = parseInt(e.target.parentElement.getAttribute("book-number"));
+            library.books[index].read = readBtn.textContent;
+        }
+
+        let button = document.createElement("button");
+        button.classList.add("remove-book")
+        button.textContent = "Delete Book";
+        /**
+         * button.onclick
+         * @param {Event} e Gets the index of the book clicked and removes it from Library
+         */
+        button.onclick = (e) => {
+            let index = parseInt(e.target.parentElement.getAttribute("book-number"));
+            library.books.splice(index, 1);
+            updateLibrary();
+        }
+
+        book.append(bookTitle, bookAuthor, bookPages, bookRead, button);
+        book.setAttribute("book-number", `${bookIndex}`);
+        libraryContainer.appendChild(book);
+
+    }
 }
 
 let library = new Library();
 
-/**
- * This function creates a book section and adds it to the DOM
- * @param {Book} bookInstance The book instance to be created
- * @param {Number} bookIndex The index of the Book Index in the Library Array
- */
-function createBookSection(bookInstance, bookIndex){
-    let book = document.createElement("div");
-    book.setAttribute("class", "book");
 
-    let bookTitle = document.createElement("div");
-    bookTitle.setAttribute('class', 'title');
-    bookTitle.innerHTML = bookInstance.title;
-
-    let bookAuthor = document.createElement("div");
-    bookAuthor.setAttribute("class", "author");
-    bookAuthor.innerHTML = bookInstance.author;
-
-    let bookPages = document.createElement("div");
-    bookPages.setAttribute("class", "pages");
-    bookPages.innerHTML = `${bookInstance.pages} pages`;
-
-    let bookRead = document.createElement("button");
-    bookRead.setAttribute("class", "status");
-    if (bookInstance.read === "Read")
-    {
-        bookRead.classList.add('read');
-    }
-    bookRead.textContent = bookInstance.read;
-    bookRead.onclick = (e) => {
-        let readBtn = e.target;
-        if (readBtn.classList.contains("read"))
-        {
-            readBtn.textContent = "Not Read";
-        }
-        else
-        {
-            readBtn.textContent = "Read";
-        }
-        readBtn.classList.toggle("read");
-        let index = parseInt(e.target.parentElement.getAttribute("book-number"));
-        library.books[index].read = readBtn.textContent;
-    }
-
-    let button = document.createElement("button");
-    button.classList.add("remove-book")
-    button.textContent = "Delete Book";
-    /**
-     * button.onclick
-     * @param {Event} e Gets the index of the book clicked and removes it from Library
-     */
-    button.onclick = (e) => {
-        let index = parseInt(e.target.parentElement.getAttribute("book-number"));
-        library.books.splice(index, 1);
-        updateLibrary();
-    }
-
-    book.append(bookTitle, bookAuthor, bookPages, bookRead, button);
-    book.setAttribute("book-number", `${bookIndex}`);
-    libraryContainer.appendChild(book);
-
-}
 
 /**
  * This function checks the library array and updates the HTML page
@@ -126,7 +127,7 @@ function updateLibrary(){
     libraryContainer.innerHTML = "";
     let index = 0;
     library.books.forEach((book) => {
-        createBookSection(book, index);
+        Library.createBookSection(book, index);
         index += 1;
     })
 }
