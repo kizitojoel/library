@@ -1,7 +1,7 @@
 # The Odin Project Web Development Curriculum
 ## Project: Library
 
-### Live Site: https://kizitojoel.github.io/library/
+### Live Site: [Library Website](https://kizitojoel.github.io/library/)
 ### Stage 1 | Factory Functions
 Implemented the library website and javascript functionality using factory functions.
 
