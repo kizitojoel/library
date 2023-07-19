@@ -1,6 +1,3 @@
-let library = [];
-let bookCount = 0;
-
 const fader = document.querySelector(".fader");
 const libraryContainer = document.querySelector(".library");
 const submitButton = document.getElementById('formSubmit');
@@ -14,38 +11,69 @@ document.addEventListener('click', (e) => {
         fader.classList.remove("fader-active");
     }
 })
-function Book(title, author, pages, read)
-{
-    this.title = title
-    this.author = author
-    this.pages = pages
-    this.read = read ? "Read" : "Not Read";
-}
-
-Book.prototype.readTitle = function(){
-    return(`The title of this book is ${this.title}`)
-}
-Book.prototype.info = function(){
-    return(`${title} by ${author}, ${pages} pages, ${read ? "Read" : "Not read yet"}`);
-}
-
-function addBookToLibrary(){
-    let title = document.getElementById('formTitle').value;
-    let author = document.getElementById('formAuthor').value;
-    let pages = document.getElementById('formPages').value;
-    let read = document.getElementById('formRead').checked;
-
-    if (!title || !author || !pages)
-    {
-        alert("Please fill in all the required fields");
-        return;
+class Book {
+    constructor(
+        title = "Untitled", 
+        author = "Unknown", 
+        pages = 0, 
+        read = "Not Read")
+        {
+        this.title = title
+        this.author = author
+        this.pages = pages
+        this.read = read ? "Read" : "Not Read";
     }
-
-    let newBook = new Book(title, author, pages, read);
-    library.push(newBook);
-    modalForm.classList.toggle("active");
-    fader.classList.remove("fader-active");
+    readTitle(){
+        return(`The title of this book is ${this.title}`);
+    }
+    info(){
+        return(`${title} by ${author}, ${pages} pages, ${read ? "Read" : "Not read yet"}`);
+    }
 }
+
+class Library {
+    constructor(){
+        this.books = []
+        this.bookCount = 0;
+    }
+    static addBookToLibrary(){
+        let title = document.getElementById('formTitle').value;
+        let author = document.getElementById('formAuthor').value;
+        let pages = document.getElementById('formPages').value;
+        let read = document.getElementById('formRead').checked;
+
+        if (!title || !author || !pages)
+        {
+            alert("Please fill in all the required fields");
+            return;
+        }
+
+        let newBook = new Book(title, author, pages, read);
+        library.books.push(newBook);
+        modalForm.classList.toggle("active");
+        fader.classList.remove("fader-active");
+    }
+}
+
+let library = new Library();
+
+// function addBookToLibrary(){
+//     let title = document.getElementById('formTitle').value;
+//     let author = document.getElementById('formAuthor').value;
+//     let pages = document.getElementById('formPages').value;
+//     let read = document.getElementById('formRead').checked;
+
+//     if (!title || !author || !pages)
+//     {
+//         alert("Please fill in all the required fields");
+//         return;
+//     }
+
+//     let newBook = new Book(title, author, pages, read);
+//     library.books.push(newBook);
+//     modalForm.classList.toggle("active");
+//     fader.classList.remove("fader-active");
+// }
 
 
 /**
@@ -88,7 +116,7 @@ function createBookSection(bookInstance, bookIndex){
         }
         readBtn.classList.toggle("read");
         let index = parseInt(e.target.parentElement.getAttribute("book-number"));
-        library[index].read = readBtn.textContent;
+        library.books[index].read = readBtn.textContent;
     }
 
     let button = document.createElement("button");
@@ -100,7 +128,7 @@ function createBookSection(bookInstance, bookIndex){
      */
     button.onclick = (e) => {
         let index = parseInt(e.target.parentElement.getAttribute("book-number"));
-        library.splice(index, 1);
+        library.books.splice(index, 1);
         updateLibrary();
     }
 
@@ -116,14 +144,14 @@ function createBookSection(bookInstance, bookIndex){
 function updateLibrary(){
     libraryContainer.innerHTML = "";
     let index = 0;
-    library.forEach((book) => {
+    library.books.forEach((book) => {
         createBookSection(book, index);
         index += 1;
     })
 }
 
 submitButton.addEventListener('click', (e) => {
-    addBookToLibrary();
+    Library.addBookToLibrary();
     updateLibrary();
     e.preventDefault();
 })
@@ -136,8 +164,8 @@ function expandModalForm(){
 const bookOne = new Book("Harry Potter", "JK Rowling", 394, true);
 const bookTwo = new Book("The Fundamentals of Drawing", "Barrington Barber", 208, false)
 
-library.push(bookOne);
-library.push(bookTwo);
+library.books.push(bookOne);
+library.books.push(bookTwo);
 
 updateLibrary();
 
