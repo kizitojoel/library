@@ -57,25 +57,6 @@ class Library {
 
 let library = new Library();
 
-// function addBookToLibrary(){
-//     let title = document.getElementById('formTitle').value;
-//     let author = document.getElementById('formAuthor').value;
-//     let pages = document.getElementById('formPages').value;
-//     let read = document.getElementById('formRead').checked;
-
-//     if (!title || !author || !pages)
-//     {
-//         alert("Please fill in all the required fields");
-//         return;
-//     }
-
-//     let newBook = new Book(title, author, pages, read);
-//     library.books.push(newBook);
-//     modalForm.classList.toggle("active");
-//     fader.classList.remove("fader-active");
-// }
-
-
 /**
  * This function creates a book section and adds it to the DOM
  * @param {Book} bookInstance The book instance to be created
